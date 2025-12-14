@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Basara Poultry Farm</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <h1>Basara Poultry Farm</h1>
+            <p>Fresh eggs delivered to you daily!</p>
+        </header>
+          <section class="hero">
+                <h2 id="hero-text"> </h2>
+        <p>Your trusted poultry supplier in Busia, Kenya.</p>
+    </section>
+    <nav>
+        <span id="menuToggle">☰ Menu</span>
+        <a href="#home">Home</a>
+            <a href="#products">Products</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#order">Order</a>
+            <a href="#contact">Contact</a>
+            <a href="#payment">Payment</a>
+
+        </nav>
+        <section id="home">
+            <h2 style="color:blueviolet">Welcome</h2>
+            <p>We supply fresh,clean,healthy eggs from our poultry farm.
+                Whether you need a single tray or wholesale crates,we deliver fast.
+            </p>
+        </section>
+
+        <section id="products">
+            <h2 style="color:blueviolet">Our products</h2>
+            <ul>
+                <li>1 Tray (30 eggs) - ksh 350</li>
+                    <li>Wholesale (10+ trays) - ksh 330 each</li>
+                        <li>Crate (210 eggs) - ksh 2400 </li>
+            </ul>
+        </section>
+           
+
+        <section id="gallery">
+            <h2 style="color:blueviolet">Gallery</h2>
+            <div class="gallery-container">
+                <img src="eggs1.png" alt="Fresh Eggs">
+                  <img src="eggs2.jpg" alt="Egg Trays">
+                      <img src="chicken1.png" alt="Healthy Chickens">
+                          <img src="chicken2.jpg" alt="Poultry Farm">
+
+
+
+                </div>
+        </section>
+        <section id="order">
+            <h2 style="color:blueviolet">Make an Order</h2>
+            <form id="orderForm">
+                <label>Your Name:</label>
+                <input type="text" id="name" placeholder="Your Name"
+                required>
+                <label>Number of Trays:</label>
+                <input type="number" id="trays" placeholder="Quantity of Eggs"
+                required>
+                <label>Phone number</label>
+                <input type="text" id="phone" placeholder="your phone number"
+                 required>
+                     <textarea id="message" placeholder="Any special instructions">
+                    
+                </textarea> 
+
+                <button type="button" id="WhatsappBtn">Send Order via WhatsApp</button>
+                
+
+
+
+
+
+            </form>
+            <p id="orderMessage"></p>
+        </section>
+        <section id="payment">
+    <h2 style="color:blueviolet">Payment Method</h2>
+    <p><strong style="color:burlywood">Payment on Delivery</strong></p>
+    <p>You will pay when your order is delivered.</p>
+</section>
+
+
+        <section id="contact">
+            <h2 style="color:blueviolet">Contact Us</h2>
+            <p style="color:red">Phone: 0794792442</p>
+            <p style="color:green">WhatsApp: 0794792442</p>
+            <p style="color:brown">Location:Busia, Nangoma, Kenya</p>
+
+        </section>
+        
+
+        <footer>
+            <p class="copyright">
+            &copy;2025 Basara Poultry Farm.All rights reserved.
+        </p>
+        </footer>
+        <script>
+document.getElementById('WhatsappBtn').addEventListener('click', function () {
+
+    const name = document.getElementById('name').value.trim();
+    const trays = document.getElementById('trays').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !trays || !phone) {
+        alert("Please fill in your name, number of trays, and phone number.");
+        return;
+    }
+
+    const businessPhone = "254794792442"; // your WhatsApp number
+
+    // Get location
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            const locationLink = `https://www.google.com/maps?q=${lat},${lon}`;
+
+            const text =
+`Hello, I want to make an order.
+
+Name: ${name}
+Phone: ${phone}
+Order: ${trays} trays
+Message: ${message || 'None'}
+
+Delivery Location:
+${locationLink}`;
+
+            const url = `https://wa.me/${businessPhone}?text=${encodeURIComponent(text)}`;
+            window.open(url, "_blank");
+
+            document.getElementById('orderForm').reset();
+
+        }, function () {
+            alert("Location access denied. Please enable GPS and try again.");
+        });
+    } else {
+        alert("Your browser does not support location sharing.");
+    }
+});
+</script>
+<script>
+const text = "Fresh Eggs • Fast Delivery • Best Prices";
+const heroText = document.getElementById("hero-text");
+
+let index = 0;
+let isTyping = true;
+
+function loopText() {
+    if (isTyping) {
+        heroText.textContent += text.charAt(index);
+        index++;
+
+        if (index === text.length) {
+            isTyping = false;
+            setTimeout(loopText, 1500); // pause after typing
+            return;
+        }
+    } else {
+        heroText.textContent = heroText.textContent.slice(0, -1);
+        index--;
+
+        if (index === 0) {
+            isTyping = true;
+            setTimeout(loopText, 800); // pause before typing again
+            return;
+        }
+    }
+    setTimeout(loopText, isTyping ? 100 : 50);
+}
+
+window.onload = loopText;
+</script>
+
+</body>
+</html>
